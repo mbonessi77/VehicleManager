@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">Vehicle Management</string>
+    <string name="welcome_message">Welcome to Fleetio</string>
+    <string name="btn_view">View Vehicles</string>
 </resources>
