@@ -7,8 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
-import androidx.navigation.NavController
-import androidx.navigation.NavGraph
+import android.widget.Toast
 import androidx.navigation.fragment.findNavController
 import com.example.vehiclemanagement.R
 
@@ -20,7 +19,7 @@ class VehicleListFragment : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        // TODO: Use the ViewModel
+        viewModel.fetchRecords()
     }
 
     override fun onCreateView(
@@ -34,6 +33,14 @@ class VehicleListFragment : Fragment() {
             findNavController().navigate(R.id.detailsFragment)
         }
 
+        observeViewModel()
+
         return v.rootView
+    }
+
+    private fun observeViewModel() {
+        viewModel.recordsList.observe(viewLifecycleOwner) {
+            Toast.makeText(requireContext(), it.toString(), Toast.LENGTH_SHORT).show()
+        }
     }
 }
