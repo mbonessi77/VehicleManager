@@ -15,9 +15,9 @@ class DetailsViewModel : ViewModel() {
     private val _vehicleRecord = MutableLiveData<Record>()
     val vehicleRecord: LiveData<Record> = _vehicleRecord
 
-    fun getVehicleData() {
+    fun getVehicleData(record: Int) {
         viewModelScope.launch(Dispatchers.IO) {
-            val response = repository.getVehicleData(3875142)
+            val response = repository.getVehicleData(record)
 
             _vehicleRecord.postValue(response.body())
         }
