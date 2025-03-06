@@ -4,13 +4,13 @@ import com.google.gson.annotations.SerializedName
 
 data class Record(
     @SerializedName("id")
-    val id: Int?,
+    val id: Int = 0,
     @SerializedName("account_id")
-    val accountId: Int?,
+    val accountId: Int = 0,
     @SerializedName("name")
-    val name: String?,
+    val name: String = "",
     @SerializedName("ownership")
-    val ownership: String?,
+    val ownership: String = "",
     @SerializedName("vehicle_type_name")
-    val vehicleTypeName: String?
+    val vehicleTypeName: String = ""
 )

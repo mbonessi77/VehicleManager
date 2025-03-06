@@ -7,9 +7,11 @@ import com.example.vehiclemanagement.databinding.VehicleItemViewBinding
 import com.example.vehiclemanagement.network.models.Record
 
 class VehicleAdapter(
-    private val records: List<Record>,
     private val itemClickListener: ItemClickListener
 ) : RecyclerView.Adapter<VehicleViewHolder>() {
+
+    private var records: MutableList<Record> = mutableListOf()
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): VehicleViewHolder {
         return VehicleViewHolder(
             VehicleItemViewBinding.inflate(
@@ -25,7 +27,14 @@ class VehicleAdapter(
     override fun onBindViewHolder(holder: VehicleViewHolder, position: Int) {
         holder.bind(records[position])
         holder.itemView.setOnClickListener {
-            itemClickListener.onVehicleClicked(records[position].id!!)
+            records[position].let { record ->
+                itemClickListener.onVehicleClicked(record.id)
+            }
         }
+    }
+
+    fun addToDataSet(newRecords: List<Record>) {
+        records.addAll(newRecords)
+        notifyDataSetChanged()
     }
 }

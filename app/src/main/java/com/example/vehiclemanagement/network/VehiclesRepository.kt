@@ -7,8 +7,8 @@ import retrofit2.Response
 class VehiclesRepository {
     private val networkService = FleetioNetwork.getInstance().create(VehiclesAPI::class.java)
 
-    suspend fun getRecordsList(): Response<RecordListResponse> {
-        return networkService.getAllVehicles()
+    suspend fun getRecordsList(cursor: String? = null): Response<RecordListResponse> {
+        return networkService.getAllVehicles(cursor)
     }
 
     suspend fun getVehicleData(id: Int): Response<Record> {

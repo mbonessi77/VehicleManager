@@ -15,11 +15,19 @@ class VehicleListViewModel : ViewModel() {
     private val _recordsList = MutableLiveData<RecordListResponse>()
     val recordsList: LiveData<RecordListResponse> = _recordsList
 
-    fun fetchRecords() {
-        viewModelScope.launch(Dispatchers.IO) {
-            val response = repository.getRecordsList()
+    private var nextCursor: String? = null
+    private var allRecordsLoaded: Boolean = false
 
-            _recordsList.postValue(response.body())
+    fun fetchRecords() {
+        if (!allRecordsLoaded) {
+            viewModelScope.launch(Dispatchers.IO) {
+                val response = repository.getRecordsList(nextCursor)
+
+                nextCursor = response.body()?.nextCursor
+                allRecordsLoaded = response.body()?.estimatedRemaining == 0
+
+                _recordsList.postValue(response.body())
+            }
         }
     }
 }
