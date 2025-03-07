@@ -6,8 +6,8 @@
     <data>
 
         <variable
-            name="vehicleRecord"
-            type="com.example.vehiclemanagement.network.models.Record" />
+            name="vehicle"
+            type="com.example.vehiclemanagement.network.models.Vehicle" />
 
     </data>
 
@@ -26,12 +26,82 @@
                 android:id="@+id/vehicle_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@{vehicleRecord.name}"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
+                android:text="@{vehicle.name}"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 tools:text="Vehicle Name" />
+
+            <ImageView
+                android:id="@+id/vehicle_image"
+                urlSrc="@{vehicle.defaultImageUrlSmall}"
+                android:layout_width="64dp"
+                android:layout_height="64dp"
+                android:layout_marginVertical="16dp"
+                android:contentDescription="@null"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/vehicle_name" />
+
+            <View
+                android:id="@+id/status_color"
+                android:layout_width="16dp"
+                android:layout_height="16dp"
+                android:layout_marginStart="4dp"
+                app:layout_constraintBottom_toBottomOf="@+id/status"
+                app:layout_constraintStart_toEndOf="@id/vehicle_image"
+                app:layout_constraintTop_toTopOf="@+id/status"
+                tools:background="@color/black" />
+
+            <TextView
+                android:id="@+id/status"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="3dp"
+                android:text="@{@string/status_name(vehicle.vehicleStatusName)}"
+                app:layout_constraintStart_toEndOf="@id/status_color"
+                app:layout_constraintTop_toTopOf="@id/vehicle_image"
+                tools:text="Status: " />
+
+            <TextView
+                android:id="@+id/type"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="6dp"
+                android:text="@{@string/type_name(vehicle.vehicleTypeName)}"
+                app:layout_constraintStart_toStartOf="@id/status_color"
+                app:layout_constraintTop_toBottomOf="@id/status"
+                tools:text="Type: Car" />
+
+            <TextView
+                android:id="@+id/group"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:text="@{@string/group_name(vehicle.groupName)}"
+                app:layout_constraintStart_toEndOf="@id/type"
+                app:layout_constraintTop_toTopOf="@id/type"
+                tools:text="Group: Car" />
+
+            <TextView
+                android:id="@+id/meter"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:text="@{@string/meter_value(vehicle.primaryMeterValue, vehicle.primaryMeterUnit)}"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/group"
+                app:layout_constraintTop_toTopOf="@id/group"
+                tools:text="Current Meter: 0 mi" />
+
+            <TextView
+                android:id="@+id/license_plate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="6dp"
+                android:text="@{@string/licence_plate(vehicle.licensePlate)"
+                app:layout_constraintStart_toStartOf="@id/type"
+                app:layout_constraintTop_toBottomOf="@id/type"
+                tools:text="License Plate: ABC-1234" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

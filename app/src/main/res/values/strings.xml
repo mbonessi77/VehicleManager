@@ -2,4 +2,14 @@
     <string name="app_name">Vehicle Management</string>
     <string name="welcome_message">Welcome to Fleetio</string>
     <string name="btn_view">View Vehicles</string>
+    <string name="fuel_type_name">Fuel Type: %s</string>
+    <string name="fuel_volume_units">Fuel Volume Units: %s</string>
+    <string name="image_url">Image Url: %s</string>
+    <string name="account_id">AccountId: %s</string>
+    <string name="status_name">Status: %s</string>
+    <string name="type_name">Type: %s</string>
+    <string name="year_name">Year: %s</string>
+    <string name="group_name">Group: %s</string>
+    <string name="meter_value">Current Meter: %1$s %2$s</string>
+    <string name="plate_name">License Plate: %s</string>
 </resources>

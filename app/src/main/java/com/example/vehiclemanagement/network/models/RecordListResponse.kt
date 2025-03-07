@@ -12,5 +12,5 @@ data class RecordListResponse(
     @SerializedName("estimated_remaining_count")
     val estimatedRemaining: Int,
     @SerializedName("records")
-    val records: List<Record>
+    val records: List<Vehicle>
 )

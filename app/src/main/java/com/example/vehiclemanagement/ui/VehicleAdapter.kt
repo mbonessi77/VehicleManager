@@ -4,13 +4,13 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.vehiclemanagement.databinding.VehicleItemViewBinding
-import com.example.vehiclemanagement.network.models.Record
+import com.example.vehiclemanagement.network.models.Vehicle
 
 class VehicleAdapter(
     private val itemClickListener: ItemClickListener
 ) : RecyclerView.Adapter<VehicleViewHolder>() {
 
-    private var records: MutableList<Record> = mutableListOf()
+    private var records: MutableList<Vehicle> = mutableListOf()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): VehicleViewHolder {
         return VehicleViewHolder(
@@ -33,7 +33,7 @@ class VehicleAdapter(
         }
     }
 
-    fun addToDataSet(newRecords: List<Record>) {
+    fun addToDataSet(newRecords: List<Vehicle>) {
         records.addAll(newRecords)
         notifyDataSetChanged()
     }
