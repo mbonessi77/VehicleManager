@@ -17,17 +17,21 @@ class VehicleListViewModel : ViewModel() {
 
     private var nextCursor: String? = null
     private var allRecordsLoaded: Boolean = false
+    var isLoading: Boolean = false
 
     fun fetchRecords() {
-        if (!allRecordsLoaded) {
-            viewModelScope.launch(Dispatchers.IO) {
-                val response = repository.getRecordsList(nextCursor)
+        viewModelScope.launch(Dispatchers.IO) {
+            isLoading = true
+            val response = repository.getRecordsList(nextCursor)
 
-                nextCursor = response.body()?.nextCursor
-                allRecordsLoaded = response.body()?.estimatedRemaining == 0
+            nextCursor = response.body()?.nextCursor
 
-                _recordsList.postValue(response.body())
-            }
+            _recordsList.postValue(response.body())
+            isLoading = false
         }
+    }
+
+    fun isLastPage(): Boolean {
+        return nextCursor.isNullOrEmpty()
     }
 }

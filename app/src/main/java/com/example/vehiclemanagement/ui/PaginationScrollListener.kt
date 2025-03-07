@@ -3,19 +3,31 @@ package com.example.vehiclemanagement.ui
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 
-abstract class PaginationScrollListener(private val layoutManager: LinearLayoutManager) :
-    RecyclerView.OnScrollListener() {
-    override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
-        super.onScrolled(recyclerView, dx, dy)
+abstract class PaginationScrollListener(
+    private val layoutManager: LinearLayoutManager
+) : RecyclerView.OnScrollListener() {
+    private val threshold = 4
 
-        val visibleItemCount: Int = layoutManager.childCount
-        val totalItemCount: Int = layoutManager.itemCount
-        val firstVisibleItemPosition: Int = layoutManager.findFirstVisibleItemPosition()
+    abstract val isLastPage: Boolean
+    abstract fun isLoading(): Boolean
 
-        if (visibleItemCount + firstVisibleItemPosition >= totalItemCount && firstVisibleItemPosition >= 0) {
-            loadMoreItems()
+    override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
+        super.onScrollStateChanged(recyclerView, newState)
+
+        if (newState == RecyclerView.SCROLL_STATE_IDLE) {
+            val visibleItemCount = layoutManager.childCount
+            val totalItemCount = layoutManager.itemCount
+            val firstVisibleItemPosition = layoutManager.findLastVisibleItemPosition()
+
+            if (isLastPage) return
+
+            if (visibleItemCount + firstVisibleItemPosition + threshold >= totalItemCount) {
+                if (!isLoading()) {
+                    loadMore()
+                }
+            }
         }
     }
 
-    protected abstract fun loadMoreItems()
+    abstract fun loadMore()
 }

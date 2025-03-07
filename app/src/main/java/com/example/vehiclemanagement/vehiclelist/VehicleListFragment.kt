@@ -4,8 +4,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.appcompat.app.AppCompatActivity
-import androidx.appcompat.widget.Toolbar
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
@@ -34,7 +32,14 @@ class VehicleListFragment : Fragment(), ItemClickListener {
         recordRecyclerView.layoutManager = LinearLayoutManager(requireContext())
         recordRecyclerView.addOnScrollListener(object :
             PaginationScrollListener(recordRecyclerView.layoutManager as LinearLayoutManager) {
-            override fun loadMoreItems() {
+            override val isLastPage: Boolean
+                get() = viewModel.isLastPage()
+
+            override fun isLoading(): Boolean {
+                return viewModel.isLoading
+            }
+
+            override fun loadMore() {
                 viewModel.fetchRecords()
             }
         })
