@@ -47,7 +47,7 @@ data class Vehicle(
     @SerializedName("work_orders_count") val workOrdersCount: Int,
     @SerializedName("created_at") val createdAt: String,
     @SerializedName("updated_at") val updatedAt: String,
-    @SerializedName("labels") val labels: List<String> = emptyList(),
+    @SerializedName("labels") val labels: List<Label> = emptyList(),
     @SerializedName("group_ancestry") val groupAncestry: String? = null,
     @SerializedName("color") val color: String? = null,
     @SerializedName("license_plate") val licensePlate: String? = null,

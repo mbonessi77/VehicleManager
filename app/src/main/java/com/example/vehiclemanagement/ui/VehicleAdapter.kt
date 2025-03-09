@@ -35,6 +35,12 @@ class VehicleAdapter(
 
     fun addToDataSet(newRecords: List<Vehicle>) {
         records.addAll(newRecords)
-        notifyDataSetChanged()
+        notifyItemRangeInserted(itemCount, newRecords.size)
+    }
+
+    fun resetData() {
+        val size = itemCount
+        records.clear()
+        notifyItemRangeRemoved(0, size)
     }
 }

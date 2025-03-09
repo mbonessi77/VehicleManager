@@ -12,4 +12,15 @@
     <string name="group_name">Group: %s</string>
     <string name="meter_value">Current Meter: %1$s %2$s</string>
     <string name="plate_name">License Plate: %s</string>
+    <string name="sort_options">Sort Options:</string>
+    <string name="name_header">Name:</string>
+    <string name="asc_option">ASC</string>
+    <string name="desc_option">DESC</string>
+    <string name="created_at_header">Created At:</string>
+    <string name="updated_at_header">Updated At:</string>
+    <string name="apply_filter">Apply Filter</string>
+    <string name="filter_options_header">Filter Options</string>
+    <string name="name">Name</string>
+    <string name="license_plate">License Plate</string>
+    <string name="vin">VIN</string>
 </resources>
