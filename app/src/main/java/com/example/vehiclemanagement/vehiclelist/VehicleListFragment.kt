@@ -10,6 +10,8 @@ import androidx.fragment.app.setFragmentResultListener
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.vehiclemanagement.databinding.FragmentVehicleListBinding
+import com.example.vehiclemanagement.helpers.PREF_KEY_BUNDLE_DATA
+import com.example.vehiclemanagement.helpers.PREF_KEY_FRAG_RESULT
 import com.example.vehiclemanagement.network.models.Vehicle
 import com.example.vehiclemanagement.ui.ItemClickListener
 import com.example.vehiclemanagement.ui.PaginationScrollListener
@@ -26,8 +28,8 @@ class VehicleListFragment : Fragment(), ItemClickListener {
     ): View {
         binding = FragmentVehicleListBinding.inflate(inflater)
 
-        setFragmentResultListener("KEY") { _, bundle ->
-            val result = bundle.getBoolean("data")
+        setFragmentResultListener(PREF_KEY_FRAG_RESULT) { _, bundle ->
+            val result = bundle.getBoolean(PREF_KEY_BUNDLE_DATA)
             if (result) {
                 viewModel.resetData()
                 adapter.resetData()
@@ -36,8 +38,6 @@ class VehicleListFragment : Fragment(), ItemClickListener {
         }
 
         binding.fab.setOnClickListener {
-            viewModel.resetData()
-            adapter.resetData()
             val directions =
                 VehicleListFragmentDirections.actionVehicleListFragmentToFilterFragment()
             findNavController().navigate(directions)
@@ -45,7 +45,9 @@ class VehicleListFragment : Fragment(), ItemClickListener {
 
         initRecyclerView()
         observeViewModel()
-        viewModel.fetchRecords()
+        if (viewModel.isStartUpCall) {
+            viewModel.fetchRecords()
+        }
 
         return binding.root
     }

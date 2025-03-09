@@ -17,4 +17,8 @@ class VehiclesRepository {
     suspend fun getVehicleData(id: Int): Response<Vehicle> {
         return networkService.getVehicleInfo(id)
     }
+
+    suspend fun getLabels(): Response<RecordListResponse> {
+        return networkService.getLabels()
+    }
 }

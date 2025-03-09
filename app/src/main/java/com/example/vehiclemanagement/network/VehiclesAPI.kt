@@ -17,4 +17,7 @@ interface VehiclesAPI {
 
     @GET("vehicles/{id}")
     suspend fun getVehicleInfo(@Path("id") id: Int): Response<Vehicle>
+
+    @GET("labels")
+    suspend fun getLabels(): Response<RecordListResponse>
 }
