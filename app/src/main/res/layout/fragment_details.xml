@@ -28,48 +28,124 @@
                     android:id="@+id/vehicle_name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_margin="32dp"
+                    android:layout_marginTop="32dp"
+                    android:layout_marginEnd="16dp"
                     android:text="@{record.name}"
                     android:textSize="24sp"
                     android:textStyle="bold"
-                    app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintEnd_toStartOf="@id/status_icon"
+                    app:layout_constraintHorizontal_chainStyle="packed"
                     tools:text="Vehicle Name!" />
+
+                <ImageView
+                    android:id="@+id/status_icon"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:contentDescription="@null"
+                    app:layout_constraintBottom_toBottomOf="@id/vehicle_name"
+                    app:layout_constraintEnd_toStartOf="@id/status_value"
+                    app:layout_constraintStart_toEndOf="@id/vehicle_name"
+                    app:layout_constraintTop_toTopOf="@id/vehicle_name"
+                    tools:background="@color/black" />
+
+                <TextView
+                    android:id="@+id/status_value"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="4dp"
+                    android:text="@{@string/status_name(record.vehicleStatusName)}"
+                    app:layout_constraintBottom_toBottomOf="@id/status_icon"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/status_icon"
+                    app:layout_constraintTop_toTopOf="@id/status_icon"
+                    tools:text="Status"/>
 
                 <ImageView
                     android:id="@+id/temp_image"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="16dp"
+                    android:contentDescription="@null"
                     urlSrc="@{record.defaultImageUrlLarge}"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/vehicle_name" />
+                    app:layout_constraintTop_toBottomOf="@id/vehicle_name"
+                    tools:src="@drawable/vehicle_placeholder" />
 
-                <TextView
-                    android:id="@+id/vehicle_id"
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
-                    android:text="@{@string/account_id(record.accountId)}"
-                    app:layout_constraintTop_toBottomOf="@id/temp_image" />
+                    android:orientation="vertical"
+                    app:layout_constraintTop_toBottomOf="@id/temp_image">
 
-                <TextView
-                    android:id="@+id/fuel_type"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
-                    android:text="@{@string/fuel_type_name(record.fuelTypeName)}"
-                    app:layout_constraintTop_toBottomOf="@id/vehicle_id" />
+                    <include
+                        android:id="@+id/meter_details"
+                        layout="@layout/details_item_view" />
 
-                <TextView
-                    android:id="@+id/fuel_volume_units"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
-                    android:text="@{@string/fuel_volume_units(record.fuelVolumeUnits)}"
-                    app:layout_constraintTop_toBottomOf="@id/fuel_type" />
+                    <include
+                        android:id="@+id/group_details"
+                        layout="@layout/details_item_view" />
+
+                    <include
+                        android:id="@+id/type_details"
+                        layout="@layout/details_item_view" />
+
+                    <include
+                        android:id="@+id/fuel_details"
+                        layout="@layout/details_item_view" />
+
+                    <include
+                        android:id="@+id/vin_details"
+                        layout="@layout/details_item_view" />
+
+                    <include
+                        android:id="@+id/plate_details"
+                        layout="@layout/details_item_view" />
+
+                    <include
+                        android:id="@+id/year_details"
+                        layout="@layout/details_item_view" />
+
+                    <include
+                        android:id="@+id/make_details"
+                        layout="@layout/details_item_view" />
+
+                    <include
+                        android:id="@+id/model_details"
+                        layout="@layout/details_item_view" />
+
+                    <include
+                        android:id="@+id/trim_details"
+                        layout="@layout/details_item_view" />
+
+                    <include
+                        android:id="@+id/registration_details"
+                        layout="@layout/details_item_view" />
+
+                    <include
+                        android:id="@+id/color_details"
+                        layout="@layout/details_item_view" />
+
+                    <include
+                        android:id="@+id/ownership_details"
+                        layout="@layout/details_item_view" />
+
+                    <include
+                        android:id="@+id/body_type_details"
+                        layout="@layout/details_item_view" />
+
+                    <include
+                        android:id="@+id/body_subtype_details"
+                        layout="@layout/details_item_view" />
+
+                    <include
+                        android:id="@+id/mspr_details"
+                        layout="@layout/details_item_view" />
+
+                </LinearLayout>
+
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 

@@ -46,7 +46,7 @@ class VehicleListViewModel : ViewModel() {
     }
 
     fun getFilterValue(fieldName: String): String? {
-        val key = buildHashMapKey(FILTER_HEADER, fieldName, INCLUDE_HEADER_PARAM)
+        val key = buildHashMapKey(FILTER_HEADER, fieldName, LIKE_HEADER_PARAM)
         return paramMap[key]
     }
 
@@ -57,15 +57,14 @@ class VehicleListViewModel : ViewModel() {
 
     fun setFilterValue(filterValue: String, filterName: String) {
         val key = buildHashMapKey(FILTER_HEADER, filterName, LIKE_HEADER_PARAM)
-        isFilterChanged = paramMap[key] == filterValue
+        isFilterChanged = paramMap[key] != filterValue
         paramMap[key] = filterValue
     }
 
     fun setDropdownValue(filterValue: String, filterName: String) {
         val key = buildHashMapKey(FILTER_HEADER, filterName, INCLUDE_HEADER_PARAM)
-        val currentValue = paramMap[key]
 
-        isFilterChanged = paramMap[key] != filterValue && !currentValue.isNullOrEmpty()
+        isFilterChanged = paramMap[key] != filterValue
         if (isFilterChanged) {
             if (filterValue.isEmpty() || filterValue == DEFAULT_DROPDOWN_SELECTION) {
                 paramMap.remove(key)
@@ -133,10 +132,11 @@ class VehicleListViewModel : ViewModel() {
         strictness: String? = null
     ): String {
         val key = "$keyType[$keyValue]"
-        if (!strictness.isNullOrEmpty()) {
-            key.plus("[$strictness]")
-        }
 
-        return key
+        return if (!strictness.isNullOrEmpty()) {
+            key.plus("[$strictness]")
+        } else {
+            key
+        }
     }
 }
