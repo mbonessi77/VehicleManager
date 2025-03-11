@@ -1,7 +1,7 @@
 package com.example.vehiclemanagement.network
 
 import com.example.vehiclemanagement.network.models.RecordListResponse
-import com.example.vehiclemanagement.network.models.Vehicle
+import com.example.vehiclemanagement.network.models.Record
 import retrofit2.Response
 
 class VehiclesRepository {
@@ -14,7 +14,7 @@ class VehiclesRepository {
         return networkService.getAllVehicles(cursor, options)
     }
 
-    suspend fun getVehicleData(id: Int): Response<Vehicle> {
+    suspend fun getVehicleData(id: Int): Response<Record> {
         return networkService.getVehicleInfo(id)
     }
 

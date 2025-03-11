@@ -9,22 +9,12 @@ data class RecordListResponse(
     @SerializedName("estimated_remaining_count") val estimatedRemainingCount: Int,
     @SerializedName("filtered_by") val filteredBy: List<Filter>,
     @SerializedName("sorted_by") val sortedBy: List<Sort>,
-    @SerializedName("records") val records: List<Vehicle>
+    @SerializedName("records") val records: List<Record>
 )
 
-data class Filter(
-    @SerializedName("name") val name: NameFilter
-)
 
-data class NameFilter(
-    @SerializedName("like") val like: String
-)
 
 data class Sort(
     @SerializedName("id") val id: String
 )
 
-data class Label(
-    @SerializedName("id") val id: Int,
-    @SerializedName("name") val name: String
-)

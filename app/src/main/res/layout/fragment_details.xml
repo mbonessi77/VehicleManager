@@ -7,7 +7,7 @@
 
         <variable
             name="record"
-            type="com.example.vehiclemanagement.network.models.Vehicle" />
+            type="com.example.vehiclemanagement.network.models.Record" />
     </data>
 
         <ScrollView

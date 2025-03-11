@@ -27,6 +27,8 @@ class VehicleListViewModel : ViewModel() {
     val labelsList: LiveData<Event<List<String>>> = _labelsList
 
     private var nextCursor: String? = null
+    private var estimatedRemaining: Int = Int.MAX_VALUE
+    private var pageCount: Int = 0
     var isLoading: Boolean = false
     var isFilterChanged: Boolean = false
     var isStartUpCall: Boolean = true
@@ -56,9 +58,13 @@ class VehicleListViewModel : ViewModel() {
     }
 
     fun setFilterValue(filterValue: String, filterName: String) {
-        val key = buildHashMapKey(FILTER_HEADER, filterName, LIKE_HEADER_PARAM)
-        isFilterChanged = paramMap[key] != filterValue
-        paramMap[key] = filterValue
+        if (filterValue.isNotEmpty()) {
+            val key = buildHashMapKey(FILTER_HEADER, filterName, LIKE_HEADER_PARAM)
+            isFilterChanged = paramMap[key] != filterValue
+            paramMap[key] = filterValue
+        } else {
+            removeFilter(filterName)
+        }
     }
 
     fun setDropdownValue(filterValue: String, filterName: String) {
@@ -85,7 +91,8 @@ class VehicleListViewModel : ViewModel() {
     }
 
     fun resetParamMap() {
-        paramMap.clear()
+        paramMap = HashMap()
+        isFilterChanged = true
     }
 
     fun fetchRecords() {
@@ -100,6 +107,8 @@ class VehicleListViewModel : ViewModel() {
                 )
 
                 nextCursor = response.body()?.nextCursor
+                estimatedRemaining = response.body()?.estimatedRemainingCount ?: 0
+                pageCount = response.body()?.perPage ?: 0
 
                 _recordsList.postValue(Event(response.body()))
                 isLoading = false
@@ -123,7 +132,7 @@ class VehicleListViewModel : ViewModel() {
     }
 
     fun isLastPage(): Boolean {
-        return nextCursor.isNullOrEmpty()
+        return estimatedRemaining == pageCount
     }
 
     private fun getButtonCheckedValue(checked: Boolean): String {

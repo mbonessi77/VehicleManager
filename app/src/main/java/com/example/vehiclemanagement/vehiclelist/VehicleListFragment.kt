@@ -18,7 +18,7 @@ import com.example.vehiclemanagement.R
 import com.example.vehiclemanagement.databinding.FragmentVehicleListBinding
 import com.example.vehiclemanagement.helpers.PREF_KEY_BUNDLE_DATA
 import com.example.vehiclemanagement.helpers.PREF_KEY_FRAG_RESULT
-import com.example.vehiclemanagement.network.models.Vehicle
+import com.example.vehiclemanagement.network.models.Record
 import com.example.vehiclemanagement.ui.ItemClickListener
 import com.example.vehiclemanagement.ui.PaginationScrollListener
 import com.example.vehiclemanagement.ui.VehicleAdapter
@@ -39,6 +39,7 @@ class VehicleListFragment : Fragment(), ItemClickListener {
             if (result) {
                 viewModel.resetData()
                 adapter.resetData()
+                binding.loadingSpinner.visibility = View.VISIBLE
                 viewModel.fetchRecords()
             }
         }
@@ -53,6 +54,7 @@ class VehicleListFragment : Fragment(), ItemClickListener {
             override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
                 when (menuItem.itemId) {
                     R.id.clear_filter -> {
+                        binding.loadingSpinner.visibility = View.VISIBLE
                         viewModel.resetParamMap()
                         viewModel.resetData()
                         adapter.resetData()
@@ -78,6 +80,7 @@ class VehicleListFragment : Fragment(), ItemClickListener {
         initRecyclerView()
         observeViewModel()
         if (viewModel.isStartUpCall) {
+            binding.loadingSpinner.visibility = View.VISIBLE
             viewModel.fetchRecords()
         }
 
@@ -97,6 +100,7 @@ class VehicleListFragment : Fragment(), ItemClickListener {
             }
 
             override fun loadMore() {
+                binding.loadingSpinner.visibility = View.VISIBLE
                 viewModel.fetchRecords()
             }
         })
@@ -108,7 +112,8 @@ class VehicleListFragment : Fragment(), ItemClickListener {
         }
     }
 
-    private fun updateRecyclerView(records: List<Vehicle>?) {
+    private fun updateRecyclerView(records: List<Record>?) {
+        binding.loadingSpinner.visibility = View.GONE
         records?.let { adapter.addToDataSet(records) }
     }
 

@@ -1,7 +1,7 @@
 package com.example.vehiclemanagement.network
 
 import com.example.vehiclemanagement.network.models.RecordListResponse
-import com.example.vehiclemanagement.network.models.Vehicle
+import com.example.vehiclemanagement.network.models.Record
 import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Path
@@ -16,7 +16,7 @@ interface VehiclesAPI {
     ): Response<RecordListResponse>
 
     @GET("vehicles/{id}")
-    suspend fun getVehicleInfo(@Path("id") id: Int): Response<Vehicle>
+    suspend fun getVehicleInfo(@Path("id") id: Int): Response<Record>
 
     @GET("labels")
     suspend fun getLabels(): Response<RecordListResponse>

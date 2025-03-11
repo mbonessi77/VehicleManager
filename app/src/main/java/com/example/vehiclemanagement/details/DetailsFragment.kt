@@ -8,9 +8,8 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.navArgs
-import com.example.vehiclemanagement.R
 import com.example.vehiclemanagement.databinding.FragmentDetailsBinding
-import com.example.vehiclemanagement.network.models.Vehicle
+import com.example.vehiclemanagement.network.models.Record
 
 class DetailsFragment : Fragment() {
     private val viewModel: DetailsViewModel by viewModels()
@@ -36,7 +35,7 @@ class DetailsFragment : Fragment() {
         }
     }
 
-    private fun updateDetails(vehicle: Vehicle) {
+    private fun updateDetails(vehicle: Record) {
 
         binding.meterDetails.apply {
             title = "Meter"
