@@ -2,15 +2,21 @@ package com.example.vehiclemanagement.filter
 
 import android.os.Bundle
 import android.view.LayoutInflater
+import android.view.Menu
+import android.view.MenuInflater
+import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import androidx.core.os.bundleOf
+import androidx.core.view.MenuProvider
 import androidx.core.widget.addTextChangedListener
 import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.setFragmentResult
+import androidx.lifecycle.Lifecycle
+import com.example.vehiclemanagement.R
 import com.example.vehiclemanagement.databinding.FragmentSortFilterBinding
 import com.example.vehiclemanagement.helpers.DEFAULT_DROPDOWN_SELECTION
 import com.example.vehiclemanagement.helpers.FILTER_TYPE_LABEL
@@ -34,6 +40,30 @@ class SortFilterFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
+        activity?.title = "Sort/Filter"
+
+        activity?.addMenuProvider(object : MenuProvider {
+            override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
+                menuInflater.inflate(R.menu.toolbar_menu, menu)
+            }
+
+            override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
+                when (menuItem.itemId) {
+                    R.id.clear_filter -> {
+                        viewModel.resetParamMap()
+                        resetUi()
+                    }
+
+                    else -> {
+                        activity?.onBackPressedDispatcher?.onBackPressed()
+                    }
+                }
+
+                return true
+            }
+
+        }, viewLifecycleOwner, Lifecycle.State.RESUMED)
+
         binding = FragmentSortFilterBinding.inflate(inflater)
         adapter = ArrayAdapter(requireContext(), android.R.layout.simple_list_item_1)
         binding.labelOptions.setAdapter(adapter)
@@ -71,6 +101,18 @@ class SortFilterFragment : Fragment() {
         binding.plateInputField.setText(viewModel.getFilterValue(FILTER_TYPE_VIN))
 
         binding.labelOptions.setText(viewModel.getDropdownValue(FILTER_TYPE_LABEL), false)
+    }
+
+    private fun resetUi() {
+        binding.nameOptionButton.isChecked = false
+        binding.createdAtOptionButton.isChecked = false
+        binding.updatedAtOptionButton.isChecked = false
+
+        binding.nameInputField.setText("")
+        binding.vinInputField.setText("")
+        binding.plateInputField.setText("")
+
+        binding.labelOptions.clearListSelection()
     }
 
     private fun initButtonCheckedListeners() {

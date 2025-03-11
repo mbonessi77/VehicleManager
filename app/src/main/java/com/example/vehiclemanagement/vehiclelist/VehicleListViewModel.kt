@@ -84,6 +84,10 @@ class VehicleListViewModel : ViewModel() {
         isFilterChanged = false
     }
 
+    fun resetParamMap() {
+        paramMap.clear()
+    }
+
     fun fetchRecords() {
         if (!isLoading) {
             isFilterChanged = false

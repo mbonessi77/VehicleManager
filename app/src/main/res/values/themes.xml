@@ -1,9 +1,15 @@
-<resources xmlns:tools="http://schemas.android.com/tools">
+<resources>
     <!-- Base application theme. -->
     <style name="Base.Theme.VehicleManagement" parent="Theme.Material3.DayNight.NoActionBar">
-        <!-- Customize your light theme here. -->
-        <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
+        <item name="android:windowBackground">@color/white</item>
+        <item name="colorPrimary">@color/fleetio_green</item>
     </style>
 
     <style name="Theme.VehicleManagement" parent="Base.Theme.VehicleManagement" />
+
+    <style name="MyActionBarTheme" parent="Base.ThemeOverlay.AppCompat.Dark.ActionBar">
+        <item name="android:windowBackground">@color/fleetio_green</item>
+        <item name="android:textColorPrimary">@color/white</item>
+        <item name="colorPrimaryVariant">@color/fleetio_green</item>
+    </style>
 </resources>

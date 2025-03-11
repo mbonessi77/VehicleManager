@@ -7,13 +7,14 @@
         android:id="@+id/filter_container"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".filter.SortFilterFragment">
+        tools:context=".filter.SortFilterFragment"
+        android:background="@color/white">
 
         <ScrollView
             android:layout_width="match_parent"
             android:layout_height="0dp"
             app:layout_constraintBottom_toTopOf="@id/btn_submit"
-            app:layout_constraintTop_toTopOf="@id/filter_container">
+            app:layout_constraintTop_toTopOf="parent">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
@@ -143,7 +144,7 @@
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <com.google.android.material.textfield.TextInputLayout
-                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+                    android:theme="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense.ExposedDropdownMenu"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginHorizontal="16dp"
@@ -169,7 +170,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="16dp"
-            android:backgroundTint="@color/light_green"
+            android:backgroundTint="@color/fleetio_green"
             android:text="@string/apply_filter"
             app:layout_constraintBottom_toBottomOf="parent" />
 

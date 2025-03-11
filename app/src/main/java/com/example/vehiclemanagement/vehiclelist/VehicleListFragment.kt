@@ -2,13 +2,19 @@ package com.example.vehiclemanagement.vehiclelist
 
 import android.os.Bundle
 import android.view.LayoutInflater
+import android.view.Menu
+import android.view.MenuInflater
+import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.MenuProvider
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.setFragmentResultListener
+import androidx.lifecycle.Lifecycle
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.vehiclemanagement.R
 import com.example.vehiclemanagement.databinding.FragmentVehicleListBinding
 import com.example.vehiclemanagement.helpers.PREF_KEY_BUNDLE_DATA
 import com.example.vehiclemanagement.helpers.PREF_KEY_FRAG_RESULT
@@ -36,6 +42,32 @@ class VehicleListFragment : Fragment(), ItemClickListener {
                 viewModel.fetchRecords()
             }
         }
+
+        activity?.title = "Vehicles"
+
+        activity?.addMenuProvider(object : MenuProvider {
+            override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
+                menuInflater.inflate(R.menu.toolbar_menu, menu)
+            }
+
+            override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
+                when (menuItem.itemId) {
+                    R.id.clear_filter -> {
+                        viewModel.resetParamMap()
+                        viewModel.resetData()
+                        adapter.resetData()
+                        viewModel.fetchRecords()
+                    }
+
+                    else -> {
+                        activity?.onBackPressedDispatcher?.onBackPressed()
+                    }
+                }
+
+                return true
+            }
+
+        }, viewLifecycleOwner, Lifecycle.State.RESUMED)
 
         binding.fab.setOnClickListener {
             val directions =

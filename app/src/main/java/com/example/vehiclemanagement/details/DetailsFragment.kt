@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.navArgs
+import com.example.vehiclemanagement.R
 import com.example.vehiclemanagement.databinding.FragmentDetailsBinding
 import com.example.vehiclemanagement.network.models.Vehicle
 
@@ -20,6 +21,7 @@ class DetailsFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
+        activity?.title = "Vehicle Details"
         binding = FragmentDetailsBinding.inflate(inflater)
         observeViewModel()
         viewModel.getVehicleData(args.recordId)
@@ -98,7 +100,7 @@ class DetailsFragment : Fragment() {
 
         binding.ownershipDetails.apply {
             title = "Ownership"
-            value = vehicle.ownership ?: "---"
+            value = vehicle.ownership
         }
 
         binding.bodyTypeDetails.apply {
